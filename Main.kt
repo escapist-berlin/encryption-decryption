@@ -1,10 +1,16 @@
 package encryptdecrypt
 
 fun main() {
-    val msg = "we found a treasure!"
+    val msg = readln()
+    val key = readln().toInt()
     val alphabet = ('a'..'z').toList()
     val result = msg.map { ch ->
-        if (ch in alphabet) alphabet[25 - alphabet.indexOf(ch)] else ch
+        if (ch in alphabet) {
+            val idx = (alphabet.indexOf(ch) + key) % 26
+            alphabet[idx]
+        } else {
+            ch
+        }
     }.joinToString("")
     println(result)
 }
