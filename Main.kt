@@ -1,16 +1,27 @@
 package encryptdecrypt
 
 fun main() {
+    val operation = readln()
     val msg = readln()
     val key = readln().toInt()
-    val alphabet = ('a'..'z').toList()
-    val result = msg.map { ch ->
-        if (ch in alphabet) {
-            val idx = (alphabet.indexOf(ch) + key) % 26
-            alphabet[idx]
-        } else {
-            ch
-        }
-    }.joinToString("")
+
+    val result = when (operation) {
+        "enc" -> encrypt(msg, key)
+        "dec" -> decrypt(msg, key)
+        else -> "Invalid operation"
+    }
+
     println(result)
+}
+
+fun encrypt(msg: String, key: Int): String {
+    return msg.map { ch ->
+        (ch.code + key).toChar()
+    }.joinToString("")
+}
+
+fun decrypt(msg: String, key: Int): String {
+    return msg.map { ch ->
+        (ch.code - key).toChar()
+    }.joinToString("")
 }
